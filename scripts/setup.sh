@@ -1,43 +1,40 @@
 #!/usr/bin/env bash
-# setup.sh - First-use dependency check & install
+# setup.sh - 首次使用依赖检测与安装
 # Usage: bash scripts/setup.sh
 
 set -e
 
-echo "🔍 Checking weibo-scraper dependencies..."
+echo "🔍 检测 weibo-scraper 依赖..."
 
 MISSING=0
 
-# Check Python3
-if ! command -v python3 &>/dev/null; then
-  echo "❌ python3 not installed"
-  exit 1
-fi
-echo "✅ python3"
-
-# Check Playwright
+# 检测依赖 Skill: agent-browser（OpenClaw 预装）
 echo ""
-echo "--- Browser Automation ---"
-if python3 -c "import playwright" &>/dev/null; then
-  echo "✅ playwright (Python)"
+echo "--- Skill 依赖 ---"
+if [ -f ~/.openclaw/skills/agent-browser/SKILL.md ] || [ -f /app/skills/agent-browser/SKILL.md ]; then
+  echo "✅ agent-browser Skill 已安装"
 else
-  echo "⚠️  playwright not installed"
-  echo "   Install: pip install playwright && playwright install chromium"
+  echo "❌ agent-browser Skill 未找到"
+  echo "   安装方式: mtskills i agent-browser --target-dir ~/.openclaw/skills"
+  echo "   （Friday 广场 ID: 1783，通常 OpenClaw 已预装）"
   MISSING=1
 fi
 
-# Check web search tool availability
-echo ""
-echo "--- Web Search ---"
-echo "ℹ️  This skill requires a web search tool (Brave Search API, Bing, etc.)"
-echo "   Set BRAVE_API_KEY or use any search tool that supports 'site:weibo.com' queries"
+# 检测依赖 Skill: catclaw-search（OpenClaw 预装）
+if [ -f ~/.openclaw/skills/catclaw-search/SKILL.md ] || [ -f /app/skills/catclaw-search/SKILL.md ]; then
+  echo "✅ catclaw-search Skill 已安装"
+else
+  echo "❌ catclaw-search Skill 未找到"
+  echo "   catclaw-search 通常为 OpenClaw 预装 Skill，请检查 /app/skills/ 目录"
+  MISSING=1
+fi
 
 if [ "$MISSING" -eq 0 ]; then
   echo ""
-  echo "✅ All dependencies ready"
+  echo "✅ 所有依赖已就绪（无 pip/npm 依赖）"
 else
   echo ""
-  echo "⚠️  Some dependencies missing. Install them as shown above."
+  echo "⚠️  部分依赖 Skill 缺失，请按上述提示安装"
 fi
 
-echo "🎉 Setup complete"
+echo "🎉 setup 完成，可以正常使用 weibo-scraper"
