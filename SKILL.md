@@ -45,8 +45,9 @@ bash scripts/setup.sh
 
 | Tool | Purpose |
 |------|---------|
+| agent-browser (recommended) | Open Weibo pages with visitor cookie to read post content (auto-detects and uses when available) |
+| Playwright | Fallback browser automation when agent-browser is not available |
 | Web search (Bing/Brave/etc.) | Locate Weibo user UID and post URLs via `site:weibo.com` search |
-| Playwright | Open Weibo pages with visitor cookie to read post content |
 
 ---
 
