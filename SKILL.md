@@ -113,15 +113,6 @@ Total: N posts fetched, M contain media (text only shown)
 
 > 微博 API 技术笔记见 `references/weibo-api-notes.md`。
 
-## Gotchas
-
-⚠️ **未登录只能看公开帖子** → "仅粉丝可见"的内容无法获取，需要告知用户。
-⚠️ **visitor cookie 有效期短** → 通常 1-2 小时过期，过期后需重新打开微博页面获取新 cookie。
-⚠️ **用户主页帖子数量有限** → 未登录状态下通常只显示 10-15 条，无法获取完整历史。
-⚠️ **搜索结果排序不精确** → 通过 web search `site:weibo.com` 间接获取，时间排序不保证准确。
-
----
-
 ## Changelog
 
 - 1.0.0: Initial release. Web search + Playwright visitor cookie approach for public Weibo content scraping without login.
