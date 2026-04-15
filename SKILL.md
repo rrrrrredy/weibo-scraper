@@ -1,10 +1,11 @@
 ---
 name: weibo-scraper
-description: "Weibo public content scraper (no login required). Uses web search + Playwright visitor cookie to fetch public posts. Supports user timeline and post content extraction."
+version: 1.0.0
+description: "Weibo public content scraper (no login required). Uses web search + Playwright visitor cookie to fetch public posts. Supports user timeline and post content extraction. Triggers: check Weibo, scrape Weibo, Weibo user, read Weibo post, Weibo timeline, fetch Weibo content. Not for: login-required content (fans-only posts); large-scale batch scraping; non-Weibo platforms (use x-twitter-scraper for Twitter)."
 tags: [weibo, scraper, social-media, content-extraction]
 ---
 
-# Weibo Content Scraper V1
+# weibo-scraper 1.0.0
 
 No login required. Fetches public Weibo posts via web search + Playwright visitor cookie.
 
@@ -109,6 +110,18 @@ Total: N posts fetched, M contain media (text only shown)
 
 ---
 
+
+> 微博 API 技术笔记见 `references/weibo-api-notes.md`。
+
+## Gotchas
+
+⚠️ **未登录只能看公开帖子** → "仅粉丝可见"的内容无法获取，需要告知用户。
+⚠️ **visitor cookie 有效期短** → 通常 1-2 小时过期，过期后需重新打开微博页面获取新 cookie。
+⚠️ **用户主页帖子数量有限** → 未登录状态下通常只显示 10-15 条，无法获取完整历史。
+⚠️ **搜索结果排序不精确** → 通过 web search `site:weibo.com` 间接获取，时间排序不保证准确。
+
+---
+
 ## Changelog
 
-- V1: Initial release. Web search + Playwright visitor cookie approach for public Weibo content scraping without login.
+- 1.0.0: Initial release. Web search + Playwright visitor cookie approach for public Weibo content scraping without login.
