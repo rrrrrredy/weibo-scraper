@@ -15,8 +15,8 @@ if [ -f ~/.openclaw/skills/agent-browser/SKILL.md ] || [ -f /app/skills/agent-br
   echo "✅ agent-browser Skill 已安装"
 else
   echo "❌ agent-browser Skill 未找到"
-  echo "   安装方式: mtskills i agent-browser --target-dir ~/.openclaw/skills"
-  echo "   （Friday 广场 ID: 1783，通常 OpenClaw 已预装）"
+  echo "   安装方式: npx clawhub install agent-browser"
+  echo "   （通常 OpenClaw 已预装）"
   MISSING=1
 fi
 
