@@ -1,13 +1,42 @@
 ---
 name: weibo-scraper
-version: 1.0.0
-description: "Weibo public content scraper (no login required). Uses web search + Playwright visitor cookie to fetch public posts. Supports user timeline and post content extraction. Triggers: check Weibo, scrape Weibo, Weibo user, read Weibo post, Weibo timeline, fetch Weibo content. Not for: login-required content (fans-only posts); large-scale batch scraping; non-Weibo platforms (use x-twitter-scraper for Twitter)."
-tags: [weibo, scraper, social-media, content-extraction]
+description: 'Weibo public content reader for visible posts that do not require login. Uses web search and Playwright visitor-mode rendering to fetch public user timelines or post text. Triggers: check Weibo, scrape Weibo, Weibo user, read Weibo post, Weibo timeline, fetch Weibo content. Not for: login-required or fans-only content; extracting account cookies; private messages; large-scale batch scraping; non-Weibo platforms.'
 ---
 
 # weibo-scraper 1.0.0
 
-No login required. Fetches public Weibo posts via web search + Playwright visitor cookie.
+No login required. Fetches visible public Weibo posts via web search + Playwright visitor-mode rendering.
+
+---
+
+## Routing Contract
+
+### When to use
+
+- User provides a Weibo username, UID, profile URL, or public post URL and asks to read, summarize, or list visible public posts.
+- User asks for a small recent timeline sample or one public post's text/media indicators.
+
+### When not to use
+
+- User asks for fans-only, login-only, private, deleted, hidden, DM, or account-specific content.
+- User asks to extract cookies, use the user's logged-in account, bypass access controls, or run large-scale scraping.
+- User asks about another platform; route to the matching platform skill.
+
+### Required inputs
+
+- Username, UID, profile URL, post URL, or enough search terms to locate the public Weibo account.
+- Desired scope: one post, recent N visible posts, or profile overview. Default to recent visible posts only.
+
+### Output
+
+- Fixed output: source URL/UID, scrape time, fetched count, visible post text, publish time when available, media indicator, and visibility caveats.
+- Do not claim the timeline is complete unless the public page exposes enough chronological evidence.
+
+### Failure handling
+
+- If search cannot locate the account after three attempts, stop and ask for the profile URL or UID.
+- If Playwright renders an empty page or selectors changed, report the failed URL and selector evidence.
+- If content appears restricted, state the visibility limitation and do not attempt login.
 
 ---
 
